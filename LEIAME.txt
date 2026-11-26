@@ -1,0 +1,18 @@
+UNO · Tour do app (Igreja Kairos)
+
+COMO SUBIR NO SITE
+1. Descompacte o zip.
+2. Envie a pasta "uno-tour" inteira para o seu site (Hostinger, Coolify, FTP ou o gerenciador de arquivos).
+   Mantenha a estrutura: index.html, steps.js e a pasta img/ juntos.
+3. O endereço fica assim: https://seusite.com.br/uno-tour/
+
+PARA COLOCAR DENTRO DE UMA PÁGINA DO SITE (opcional)
+<iframe src="/uno-tour/" style="width:100%;height:90vh;border:0;border-radius:16px" allow="fullscreen"></iframe>
+
+LINKS DIRETOS PARA CADA PARTE
+/uno-tour/#p1    início (Área Pastoral)
+/uno-tour/#p69   Líder de GP
+/uno-tour/#p93   Membro
+
+EDITAR TEXTOS
+Os textos de cada passo ficam no arquivo steps.js (título "t" e explicação "d").
