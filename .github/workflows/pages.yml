@@ -1,0 +1,45 @@
+name: Deploy Pages
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: true
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Assemble site
+        run: |
+          set -euo pipefail
+          mkdir -p site
+          cp index.html steps.js LEIAME.txt site/
+          touch site/.nojekyll
+          if ls assets/part* >/dev/null 2>&1; then
+            cat assets/part* | base64 -d | tar -xzf - -C site
+          fi
+          if [ -d b64 ]; then
+            find b64 -type f -name '*.b64' | while read -r f; do
+              rel="${f#b64/}"
+              out="site/${rel%.b64}"
+              mkdir -p "$(dirname "$out")"
+              base64 -d "$f" > "$out"
+            done
+          fi
+          find site -type f | wc -l
+          ls site site/img site/audio | head
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+      - id: deployment
+        uses: actions/deploy-pages@v4
